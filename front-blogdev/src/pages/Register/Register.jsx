@@ -1,8 +1,6 @@
 import React from 'react'
 import { useState, useEffect } from 'react'
-import { UserAuthentication } from '../../hooks/userAuthentication'
-
-
+import { userAuthentication } from '../../hooks/userAuthentication'
 
 const Register = () => {
   //#region Controller Service
@@ -12,8 +10,7 @@ const Register = () => {
   const [corfirmedPassword, setCorfirmedPassword] = useState('')
   const [error, setError] = useState('')
 
-  const { createUser, error: authError, loading } = UserAuthentication
-
+  const { createUser, error: authError, loading } = userAuthentication()
 
   const handlerSubmit = async (e) => {
     e.preventDefault()
@@ -30,9 +27,15 @@ const Register = () => {
     }
 
     const res = await createUser(user)
-
+    
     console.table(res)
   }
+
+  useEffect(() => {
+    if (authError) {
+      setError(authError)
+    }
+  }, [authError])
   //#endregion
   //#region View Browser Page
   return (
@@ -47,7 +50,7 @@ const Register = () => {
             required
             value={displayName}
             onChange={(e) => setDisplayName(e.target.value)}
-            placeholder="Entre com seu nomade nome"></input>
+            placeholder="Entre con seu nomade nome"></input>
         </label>
         <label>
           <span>E-mail: </span>
@@ -79,7 +82,8 @@ const Register = () => {
             onChange={(e) => setCorfirmedPassword(e.target.value)}
             placeholder="Entre com sua senha"></input>
         </label>
-        <button className="btn">Cadastrar</button>
+        {!loading && <button className="btn">Cadastrar</button>}
+        {loading && <button className="btn" disabled>Aguarde...</button>}
         {error && <p className='error'>{error}</p>}
       </form>
     </div>
