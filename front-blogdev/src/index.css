@@ -59,6 +59,8 @@ input::placeholder, textarea::placeholder{
 button[disabled]{
     color: #dc3545;
     background-color: #f8d4da;
+    padding: 5px;
+    border-radius: 10px;
 }
 
 .btn.btn-dark{

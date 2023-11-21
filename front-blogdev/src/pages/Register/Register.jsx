@@ -1,5 +1,7 @@
+import { createUserWithEmailAndPassword } from 'firebase/auth'
 import React from 'react'
-import { useState, useEffect } from 'react'
+import { useEffect } from 'react'
+import { useState } from 'react'
 import { userAuthentication } from '../../hooks/userAuthentication'
 
 const Register = () => {
@@ -10,32 +12,34 @@ const Register = () => {
   const [corfirmedPassword, setCorfirmedPassword] = useState('')
   const [error, setError] = useState('')
 
-  const { createUser, error: authError, loading } = userAuthentication()
+  const {createUser, error: authError, loading, message} = userAuthentication()
 
   const handlerSubmit = async (e) => {
     e.preventDefault()
     setError('')
+
     const user = {
       displayName,
       email,
       password
     }
-
+    console.log(user)
     if (password != corfirmedPassword) {
       setError('As senhas precisam ser iguais.')
       return
     }
 
     const res = await createUser(user)
-    
-    console.table(res)
+    console.log(res)
+
   }
 
-  useEffect(() => {
-    if (authError) {
+  useEffect (()=>{
+    if(authError){
       setError(authError)
     }
-  }, [authError])
+  },[authError])
+
   //#endregion
   //#region View Browser Page
   return (
@@ -50,7 +54,7 @@ const Register = () => {
             required
             value={displayName}
             onChange={(e) => setDisplayName(e.target.value)}
-            placeholder="Entre con seu nomade nome"></input>
+            placeholder="Entre com seu nomade nome"></input>
         </label>
         <label>
           <span>E-mail: </span>
@@ -83,7 +87,8 @@ const Register = () => {
             placeholder="Entre com sua senha"></input>
         </label>
         {!loading && <button className="btn">Cadastrar</button>}
-        {loading && <button className="btn" disabled>Aguarde...</button>}
+        {loading && <button className="btn">Aguarde...</button>}
+        {message && <p>Cadastrado com sucesso!</p>}
         {error && <p className='error'>{error}</p>}
       </form>
     </div>

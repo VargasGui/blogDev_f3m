@@ -28,3 +28,11 @@
     background-color: #000;
     color: #fff;
 }
+.buttonLogOut {
+    margin-right: 2rem;
+    font-size: 1.1rem;
+    background-color: rgb(150, 82, 82);
+    color: #fff;
+    border: 1px solid black;
+    border-radius: 5px;
+}
