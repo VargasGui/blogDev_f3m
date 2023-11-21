@@ -3,29 +3,48 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 import Home from './pages/Home/Home'
 import About from './pages/About/About'
 import Navbar from './components/Navbar'
-import Footer from './components/Footer'
 import Register from './pages/Register/Register'
 import Login from './pages/Login/Login'
 
+import { onAuthStateChanged } from "firebase/auth";
+import { useAuth } from "./hooks/useAuth";
+import { useEffect, useState } from "react";
+import { AuthProvider } from "./context/AuthContext";
 
+const App = () => {
+  const [user, setUser] = useState(undefined);
+  const { auth } = useAuth();
 
-function App() {
+  const loadingUser = user === undefined;
+
+  useEffect(() => {
+    onAuthStateChanged(auth, (user) => {
+      setUser(user);
+    });
+  }, [auth]);
+
+  if (loadingUser) {
+    return <p>Loading....</p>;
+  }
   return (
     <>
-      <BrowserRouter>
-        <Navbar />
-        <div className='container'>
-          <Routes>
-            <Route path='/' element={<Home />}></Route>
-            <Route path='/about' element={<About />}></Route>
-            <Route path='/register' element={<Register />}></Route>
-            <Route path='/login' element={<Login />}></Route>
-          </Routes>
-        </div>
-        <Footer />
-      </BrowserRouter>
-    </>
-  )
-}
+      <AuthProvider value={{ user }}>
+        <BrowserRouter>
+          <Navbar />
+          <div className="container">
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/about" element={<About />} />
+              <Route path="/login" element={!user ? <Login/> : <Navigate to="/"/>} />
+              <Route path="/register" element={!user ? <Register/> : <Navigate to="/"/>} />
+              <Route path="*" element={<h1>Not Found</h1>} />
 
-export default App
+            </Routes>
+          </div>
+        </BrowserRouter>
+      </AuthProvider>
+    </>
+  );
+};
+
+export default App;
