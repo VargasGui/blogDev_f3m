@@ -28,3 +28,11 @@
     background-color: #000;
     color: #fff;
 }
+.logout{
+    width: 60px;
+    background-color: darkturquoise;
+    border: none;
+    border-radius: 10px;
+    padding: 5px;
+    cursor: pointer;
+}
