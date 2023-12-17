@@ -7,14 +7,14 @@ const Post = () => {
     const { document: post } = userFetchDocument("posts", id)
 
     return (
-        <div className={styles.post_container}>
+        <div>
             {post && (
                 <>
                     <h1>{post.title}</h1>
                     <img src={post.image} />
                     <p>{post.body}</p>
                     <h3>Esse post trata sobre:</h3>
-                    <div className={styles.tags}>
+                    <div>
                         {post.tags.map(tag => (
                             <p key={tag}>
                                 <span>#</span>

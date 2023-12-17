@@ -50,7 +50,7 @@ const EditPost = () => {
         navigate("/dashboard")
     }
     return (
-        <div className={styles.edit_post}>
+        <div>
             {post && (
                 <>
                     <h2>Editando o post: {post.title}</h2>
@@ -64,8 +64,8 @@ const EditPost = () => {
                             <span>Imagem:</span>
                             <input type="text" value={image} onChange={(e) => setImage(e.target.value)} required />
                         </label>
-                        <p styles={styles.preview_title}>Preview da imagem Atual</p>
-                        <img src={post.image} alt="" styles={styles.image_preview} />
+                        <p>Preview da imagem Atual</p>
+                        <img src={post.image} alt=""/>
                         <label>
                             <span>Conteudo:</span>
                             <textarea value={body} onChange={(e) => setBody(e.target.value)} required />
@@ -79,7 +79,7 @@ const EditPost = () => {
                             <button type="submit" disabled>Carregando..</button>
                         )}
                         {(response.error || formError) && (
-                            <p className={styles.error}>{response.error || formError}</p>
+                            <p>{response.error || formError}</p>
                         )}
                     </form>
                 </>
