@@ -1,15 +1,15 @@
+import React from 'react'
 import { useState, useEffect } from 'react'
-import { useAuth } from '../../hooks/useAuth'
+import { userAuthentication } from '../../hooks/userAuthentication'
 
 const Register = () => {
-  //#region Controller Service
   const [displayName, setDisplayName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [corfirmedPassword, setCorfirmedPassword] = useState('')
   const [error, setError] = useState('')
 
-  const { createUser, error: authError, loading } = useAuth()
+  const { createUser, error: authError, loading } = userAuthentication()
 
   const handlerSubmit = async (e) => {
     e.preventDefault()
@@ -35,8 +35,6 @@ const Register = () => {
       setError(authError)
     }
   }, [authError])
-  //#endregion
-  //#region View Browser Page
   return (
     <div>
       <h1>Compartilhe suas experiências com outros nomades</h1>
@@ -87,7 +85,6 @@ const Register = () => {
       </form>
     </div>
   )
-  //#endregion
 }
 
 export default Register

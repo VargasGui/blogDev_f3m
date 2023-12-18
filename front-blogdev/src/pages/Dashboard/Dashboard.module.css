@@ -1,0 +1,41 @@
+/* Dashboard.module.css */
+
+.dashboard {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 90%; /* Define a largura para 90% da tela */
+  margin: auto; /* Centraliza o conteúdo na tela */
+}
+
+.dashboard_heading {
+  font-size: 2.2em;
+  margin-bottom: 0.5em;
+  align-self: flex-start;
+}
+
+.postItem {
+  border: 1px solid #ccc;
+  padding: 10px;
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%; /* Define a largura para 100% dentro do .postItem */
+}
+
+.actions {
+  display: flex;
+  gap: 10px;
+}
+
+.post_header {
+  display: flex;
+  justify-content: space-between;
+  font-weight: bold;
+  border-bottom: 2px solid #ccc;
+  width: 100%; /* Define a largura para 100% dentro do .post_header */
+  padding: 10px;
+}
